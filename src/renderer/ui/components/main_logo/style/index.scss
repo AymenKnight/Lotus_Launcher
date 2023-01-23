@@ -1,0 +1,15 @@
+@use '~styles/appColors' as *;
+.main-logo {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+
+    > span {
+        font-weight: 800;
+        font-size: 20px;
+        color: $coldred;
+        text-align: center;
+        letter-spacing: 2.5px;
+    }
+}
