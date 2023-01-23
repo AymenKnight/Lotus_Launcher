@@ -1,0 +1,17 @@
+@use '~styles/appColors' as *;
+.ip-display {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 5px;
+    width: fit-content;
+    background: $goodblack;
+    border-radius: 35px;
+
+    > span {
+        font-weight: 600;
+        font-size: 16px;
+        color: $white;
+    }
+}
