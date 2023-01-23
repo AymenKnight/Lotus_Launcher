@@ -9,14 +9,14 @@
     "paths": {
       "*": ["node_modules/*"],
       "@components/*": ["src/renderer/ui/components/*"],
-
+      "@libs/*": ["src/renderer/libs/*"],
       "@containers/*": ["src/renderer/ui/containers/*"],
 
       "@assets/*": ["src/renderer/assets/*"],
 
       "toSvg/*": ["src/renderer/assets/svg/*"],
       "toPng/*": ["src/renderer/assets/pictures/*"],
-
+      "@stores/*": ["src/renderer/services/zustand/*"],
       "@colors": ["src/renderer/assets/styles/color.ts"]
     },
     "noEmit": false,
