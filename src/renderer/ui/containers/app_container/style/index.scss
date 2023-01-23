@@ -1,40 +1,30 @@
 @use '~styles/appColors' as *;
 
 .app-container {
-    /* Auto Layout */
 
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-around;
-    position: relative;
-    gap: 1vw;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
 
     width: 100%;
     height: 100%;
+    padding: 50px 20px;
 
-    /* Background */
-    padding: 2vh 1vw;
+    background: radial-gradient(96.24% 96.24% at 50% 29.13%, #374151 2.05%, #1F2023 25.3%, #282D35 100%);
 
-    background: $background;
-    &.drakula {
-        &,~div {
-            --background: #303030;
-            --lighter-background: #404040;
-            --cold-blue: #439297;
-            --hot-red: #C13E34;
-            --good-green: #1D7D58;
-            --warm-orange: #f2994a;
-            --cold-red: #C5434D;
-            --secondary-color: #363636;
-            --darker-secondary-color: #262626;
-            --border-color: #ffffff0d;
-            --silver-gray: #5a6a67;
-            --hot-purple: #4D8F87;
-            --white: #ffffff;
-            --text-gray: #bdbdbd;
-            --good-black: #18191c;
-            --light: #ffffff20;
-        }
+    >.middle-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    > .services-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: stretch;
+        gap: 10px;
     }
 }
