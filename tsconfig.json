@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*"],
+      "@components/*": ["src/renderer/ui/components/*"],
+
+      "@containers/*": ["src/renderer/ui/containers/*"],
+
+      "@assets/*": ["src/renderer/assets/*"],
+
+      "toSvg/*": ["src/renderer/assets/svg/*"],
+      "toPng/*": ["src/renderer/assets/pictures/*"],
+
+      "@colors": ["src/renderer/assets/styles/color.ts"]
+    },
+    "noEmit": false,
+    "typeRoots": ["src/main/channel/types", "node_modules/@types"],
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "importsNotUsedAsValues": "remove",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "sourceMap": true,
+    "outDir": "dist"
+  },
+  "skipLibCheck": true,
+  "include": ["src", "@types"],
+  "exclude": ["node_modules"]
+}

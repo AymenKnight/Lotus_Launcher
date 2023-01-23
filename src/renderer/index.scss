@@ -1,0 +1,104 @@
+@use '~font/font' as *;
+@use '~styles/appColors' as *;
+@include  fonts;
+* {
+  box-sizing: border-box;
+  user-select: none;
+  font-family: 'Sarabun','noto', Arial, sans-serif;
+  color: $white;
+  scrollbar-color: $hotpurple transparent;
+  scrollbar-width: thin;
+}
+li {
+  list-style-type: none;
+}
+// removed stuff from Input
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+
+:root {
+  --background: #23315e;
+  --lighter-background: #2c3964;
+  --cold-red: #ff4b59;
+  --cold-blue: #01b9ca;
+  --hot-red: #f44336;
+  --good-green: #0acf83;
+  --warm-orange: #f2994a;
+  --secondary-color: #344175;
+  --darker-secondary-color: #29336a;
+  --border-color: #3c4b7e;
+  --silver-gray: #646d8d;
+  --hot-purple: #626ed4;
+  --white: #ffffff;
+  --text-gray: #bdbdbd;
+  --good-black: #18191c;
+  --darker: #00000020;
+  --light: #ffffff20;
+  --cold-black: #374151;
+}
+:any-link {
+  text-decoration: none;
+}
+
+body,
+#app-mount {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 1vh;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $hotpurple;
+  //box-shadow: 0px 0px 4px $hotpurple;
+  border-radius: 11vh;
+}
+::-webkit-scrollbar-track {
+  background: rgba(43, 43, 43, 0.01);
+  //box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 11vh;
+}
+div {
+  &::-webkit-scrollbar-thumb {
+    visibility: hidden;
+    transition: 1s all linear;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      visibility: visible;
+      transition: 1s all linear;
+    }
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: $white;
+  box-shadow: 0 0 0px 1000px $darkerseccolor inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+  display: none;
+}
