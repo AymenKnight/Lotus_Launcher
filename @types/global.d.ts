@@ -90,3 +90,4 @@ declare module 'postcss-will-change';
 declare module 'postcss-vmin';
 declare module 'postcss-pseudoelements';
 declare module 'postcss-color-rgba-fallback';
+declare module 'react-stopwatch';
