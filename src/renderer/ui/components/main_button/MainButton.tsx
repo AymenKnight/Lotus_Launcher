@@ -3,6 +3,7 @@ import './style/index.scss';
 import { color } from '@assets/styles/color';
 import TextButton from '@components/buttons/text_button';
 import LoadingSpinner from '@components/loading_spinner';
+import ReactStopwatch from 'react-stopwatch';
 
 interface MainButtonProps {
   onPress?: () => void;
@@ -73,8 +74,29 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
           ? 'Restart'
           : 'Starting please wait'}
       </span>
-      {/* //TODO change to timer */}
-      {state == 'started' && <span>00:30:24</span>}
+
+      {state == 'started' && (
+        <ReactStopwatch
+          seconds={0}
+          minutes={0}
+          hours={0}
+          onChange={({
+            hours,
+            minutes,
+            seconds,
+          }: {
+            hours: number;
+            minutes: number;
+            seconds: number;
+          }) => {
+            // do something
+          }}
+          onCallback={() => console.log('Finish')}
+          render={({ formatted }: { formatted: string }) => {
+            return <span>{formatted}</span>;
+          }}
+        />
+      )}
     </div>
   );
 }
