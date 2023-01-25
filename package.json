@@ -15,10 +15,8 @@
     "productionWeb": "set mode=production&& webpack  --env mode=production",
     "storybook": "set mode=development&& start-storybook -p 6006",
     "realtimeServer": "http-server ./build/renderer",
-  "tauri:build": "tauri build",
+    "tauri:build": "tauri build",
     "tauri:dev": "tauri dev",
-
-
     "eslint": "eslint --ext .ts,.tsx src/",
     "eslint-fix": "eslint --fix  --ext .ts,.tsx src/",
     "check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -28,39 +26,23 @@
     "fix-sass": " npx stylelint \"src/**/*.{css,sass,scss}\" --fix",
     "build-storybook": "build-storybook",
     "test": "web-test-runner \"src/**/*.test.tsx\""
-  
   },
   "dependencies": {
-   
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-
-   
-  
-
-  
     "@tauri-apps/api": "^1.2.0",
-
-
     "date-fns": "^2.29.3",
-
-
     "react": "^18.2.0",
     "react-countdown": "^2.3.5",
-
     "react-dom": "^18.2.0",
- 
- 
     "react-inlinesvg": "^3.0.1",
-
-
+    "react-stopwatch": "^2.0.4",
     "zustand": "^4.1.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
-
     "@emotion/babel-plugin": "^11.10.5",
     "@emotion/eslint-plugin": "^11.10.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
@@ -76,12 +58,8 @@
     "@tauri-apps/cli": "^1.2.2",
     "@testing-library/react": "^13.4.0",
     "@types/chai": "^4.3.4",
-   
     "@types/mocha": "^10.0.1",
     "@types/react": "^18.0.26",
-
-
-
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
@@ -93,8 +71,6 @@
     "cssnano": "^5.1.14",
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^8.0.1",
-
-
     "eslint": "^8.30.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
