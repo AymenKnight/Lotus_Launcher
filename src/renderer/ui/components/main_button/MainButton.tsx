@@ -21,7 +21,7 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
         }}
       >
         {state == 'loading' ? (
-          <div className="loading-container">
+          <div className="loading-container" onClick={onPress}>
             <LoadingSpinner
               width={80}
               height={80}
