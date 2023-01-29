@@ -36,9 +36,7 @@ fn main() {
         |app| {
             let win = app.get_window("main").unwrap();
            
-            win.unminimize();
-          
-            win.set_resizable(false);
+         
 
             Ok(())}
     )
