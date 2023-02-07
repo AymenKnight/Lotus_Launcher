@@ -179,7 +179,7 @@ module.exports = {
 
   devServer: {
     static: path.resolve(__dirname, 'public'),
-    port: 4000,
+    port: 4999,
     hot: true,
     historyApiFallback: true,
     open: true,
