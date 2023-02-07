@@ -2,9 +2,9 @@
   "build": {
     "beforeBuildCommand": "set platform=tauri&& yarn productionWeb",
     "beforeDevCommand": "set platform=tauri&& yarn devServer",
-    "devPath": "http://localhost:4000",
+    "devPath": "http://localhost:4999",
     "distDir": "../build/renderer/",
-     "withGlobalTauri": true
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "Lotus Launcher",
@@ -12,19 +12,15 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true,
-     "fs": {
-        "scope": ["$RESOURCE/*"],"all": true
-      },
-       "shell": { "all": true, "execute": true, "sidecar": true, "open": true, 
-       "scope": [ 
-         { "name": "start", "cmd": "resources/dist/latus.exe" }
-          ] } 
- 
-      
-      
+      "shell": {
+        "all": true,
+        "execute": true,
+        "sidecar": true,
+        "open": true,
+        "scope": [{ "name": "start", "cmd": "Binaries/Win64/exec.mc" }]
+      }
     },
-       
+
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
@@ -40,10 +36,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-           "resources": [
-     
-        "resources/*"
-      ],
+      "resources": ["Binaries/*"],
       "identifier": "com.clinicord.alfa",
       "longDescription": "",
       "macOS": {
@@ -53,7 +46,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-    
+
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -78,8 +71,5 @@
         "titleBarStyle": "Overlay"
       }
     ]
-
-
-
   }
 }

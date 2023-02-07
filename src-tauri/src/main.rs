@@ -2,45 +2,77 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
-
-use tauri::{Manager};
-use std::{process::Command, fs, path::Path};
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+use sysinfo::{ProcessExt, System, SystemExt};
+use tauri::{Manager, WindowEvent};
+use local_ip_address::local_ip;
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+fn kill_api() -> String {
+    let mut found=false;
+    let binding = System::new_all();
+for process in binding.processes_by_name("exec.mc"){
+process.kill().then(|| println!("Killed process {}", process.name())).expect("Failed to kill process ");
+found=true;
+}
+
+if found==false{
+    format!("API is not running or already closed")
+}
+else{
+    format!("API closed successfully")}
+}
+#[tauri::command]
+fn is_api_running() -> String {
+    let mut found=false;
+    let binding = System::new_all();
+for _process in binding.processes_by_name("exec.mc"){
+found=true;
+break;
+}
+
+if found==false{
+    format!("false")
+}
+else{
+    format!("true")}
+}
+
+
+#[tauri::command]
+fn get_ip() -> String {
+    let my_local_ip = local_ip().unwrap();
+    format!("{:?}", my_local_ip)
 }
 // #[tauri::command]
-// fn start_the_server(handle: tauri::AppHandle) -> String {
-//    let resource_path = handle.path_resolver()
-//       .resolve_resource("latus.exe")
-//       .expect("failed to resolve resource");
-      
-//     let file = std::fs::File::open(&resource_path).unwrap();
-
-// // let output = Command::new("$RESOURCE/latus.exe").output().expect("Failed to execute process");
-// // let stdout = String::from_utf8_lossy(&output.stdout);
-// // let stderr = String::from_utf8_lossy(&output.stderr);
-// //  let mut vec = Vec::new();
-// //   vec.push(stdout.to_string());
-// // vec.push(stderr.to_string());
-
-// //     return vec;
+// fn init_process( window: Window) {
+//     // let command :StdCommand= StdCommand::from(
+//     //     Command::new_sidecar("start")
+//     //         .expect("Failed to start api"),
+//     //     );command.spawn().expect("Failed to spawn `backend_server` binary");
+//     //     command.stdin()
+// //   std::thread::spawn(move || {
+// //    let c= Command::new("start");
+// //  let child=  c.spawn();
+// //  child.unwrap().0.
+// //   });
 // }
 
-
-
 fn main() {
-   
+
     tauri::Builder::default().setup(
         |app| {
-            let win = app.get_window("main").unwrap();
-           
-         
+            let main_window = app.get_window("main").unwrap();
 
             Ok(())}
-    )
-        .invoke_handler(tauri::generate_handler![greet])
+    
+        ) .on_window_event(move |event| match event.event() {
+            WindowEvent::Destroyed =>  {
+              println!("Window destroyed");
+              kill_api();
+            }
+        
+            _ => {}
+          })
+        .invoke_handler(tauri::generate_handler![kill_api,is_api_running,get_ip])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
