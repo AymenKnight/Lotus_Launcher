@@ -72,3 +72,4 @@ out/
 /dist
 /.dccache
 /src-tauri/resources/dist
+/src-tauri/Binaries
