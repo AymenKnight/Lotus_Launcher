@@ -3,11 +3,11 @@ import './style/index.scss';
 import { color } from '@assets/styles/color';
 import TextButton from '@components/buttons/text_button';
 import LoadingSpinner from '@components/loading_spinner';
-import ReactStopwatch from 'react-stopwatch';
+import StopWatch from '@components/stop_watch';
 
 interface MainButtonProps {
   onPress?: () => void;
-  state: 'started' | 'stopped' | 'start' | 'shutdown' | 'loading';
+  state: 'starting' | 'started' | 'stopped' | 'stoping' | 'error' | 'unknown';
 }
 export default function MainButton({ onPress, state }: MainButtonProps) {
   return (
@@ -20,8 +20,8 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
           }`,
         }}
       >
-        {state == 'loading' ? (
-          <div className="loading-container" onClick={onPress}>
+        {state == 'starting' || state == 'stoping' ? (
+          <div className="loading-container">
             <LoadingSpinner
               width={80}
               height={80}
@@ -33,14 +33,9 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
         ) : (
           <TextButton
             backgroundColor={
-              state == 'started'
-                ? color.cold_blue
-                : state == 'stopped'
-                ? color.silver_gray
-                : state == 'start'
-                ? color.good_green
-                : color.hot_red
+              state == 'started' ? color.cold_blue : color.silver_gray
             }
+            afterBgColor={state == 'started' ? color.hot_red : color.good_green}
             radius={'100%'}
             width={150}
             height={150}
@@ -55,48 +50,23 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
           color:
             state == 'started'
               ? color.good_green
-              : state == 'stopped'
-              ? color.silver_gray
-              : state == 'start'
-              ? color.cold_blue
-              : state == 'shutdown'
+              : state == 'stoping'
               ? color.hot_red
-              : color.warm_orange,
+              : state == 'starting'
+              ? color.warm_orange
+              : color.silver_gray,
         }}
       >
         {state == 'started'
-          ? 'Started'
+          ? 'Server is running'
           : state == 'stopped'
-          ? 'Stopped'
-          : state == 'start'
           ? 'Click to start'
-          : state == 'shutdown'
-          ? 'Restart'
-          : 'Starting please wait'}
+          : state == 'starting'
+          ? 'Starting please wait'
+          : 'Stopping please wait'}
       </span>
 
-      {state == 'started' && (
-        <ReactStopwatch
-          seconds={0}
-          minutes={0}
-          hours={0}
-          onChange={({
-            hours,
-            minutes,
-            seconds,
-          }: {
-            hours: number;
-            minutes: number;
-            seconds: number;
-          }) => {
-            // do something
-          }}
-          onCallback={() => console.log('Finish')}
-          render={({ formatted }: { formatted: string }) => {
-            return <span>{formatted}</span>;
-          }}
-        />
-      )}
+      {state == 'started' && <StopWatch />}
     </div>
   );
 }

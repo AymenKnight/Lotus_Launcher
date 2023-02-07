@@ -5,7 +5,7 @@ import './style/index.scss';
 import { color } from '@assets/styles/color';
 interface ServicesStatusProps {
   name: string;
-  state: 'running' | 'stopped' | 'loading';
+  state: 'starting' | 'started' | 'stopped' | 'stoping' | 'error' | 'unknown';
 }
 export default function ServicesStatus({ name, state }: ServicesStatusProps) {
   return (
@@ -14,17 +14,20 @@ export default function ServicesStatus({ name, state }: ServicesStatusProps) {
         className="loading-wrapper"
         css={{
           border: `  2px solid ${
-            state == 'loading'
+            state == 'stoping' || state == 'starting'
               ? color.warm_orange
-              : state == 'running'
+              : state == 'started'
               ? color.good_green
               : color.silver_gray
           };`,
         }}
       >
-        {state == 'loading' ? (
-          <LoadingSpinner />
-        ) : state == 'running' ? (
+        {state == 'stoping' || state == 'starting' ? (
+          <LoadingSpinner
+            borderColor={color.white}
+            borderTopColor={color.hot_purple}
+          />
+        ) : state == 'started' ? (
           <Check width={14} height={14} />
         ) : (
           <Stopped width={10} height={10} />

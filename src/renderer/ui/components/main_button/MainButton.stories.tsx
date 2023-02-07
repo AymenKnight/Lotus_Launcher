@@ -9,4 +9,4 @@ const Template: Story<ComponentProps<typeof MainButton>> = (args) => (
   <MainButton {...args} />
 );
 export const FirstStory = Template;
-FirstStory.args = { state: 'loading' };
+FirstStory.args = { state: 'started' };

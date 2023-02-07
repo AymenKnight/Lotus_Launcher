@@ -11,5 +11,5 @@ const Template: Story<ComponentProps<typeof ServicesStatus>> = (args) => (
 export const FirstStory = Template;
 FirstStory.args = {
   name: 'Clinicord services',
-  state: 'running',
+  state: 'started',
 };
