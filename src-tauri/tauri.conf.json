@@ -30,7 +30,16 @@
         "sidecar": true,
         "open": true,
         "scope": [
-          { "name": "start", "cmd": "Binaries/Win64/exec.mc" },
+          {
+            "name": "start",
+            "cmd": "Binaries/Win64/lotus.exe",
+            "args": [
+              "-u",
+              { "validator": "\\S+" },
+              "-p",
+              { "validator": "\\S+" }
+            ]
+          },
           {
             "name": "pg_isReady",
             "cmd": "Binaries/ThirdParty/PostgreSQL/bin/pg_isready.exe"
