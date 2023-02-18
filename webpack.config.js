@@ -182,7 +182,6 @@ module.exports = {
     port: 4999,
     hot: true,
     historyApiFallback: true,
-    open: true,
   },
   devtool: isDevelopment ? 'eval-source-map' : 'source-map',
   target: isDevelopment ? 'web' : 'browserslist',
