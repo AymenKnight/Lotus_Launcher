@@ -5,6 +5,7 @@ import { join, resolveResource } from '@tauri-apps/api/path';
 import { DbServerLauncher } from '../dbLauncher';
 import { useApiServerStore } from './apiServerStore';
 import { appWindow } from "@tauri-apps/api/window";
+import { DB_ENV } from '@constants/db';
 
 export interface DBServerState {
   serverState:
@@ -31,14 +32,14 @@ export interface DBServerState {
   serverStopped: () => void;
   serverError: () => void;
 }
-const dataDir = await resolveResource('Binaries/ThirdParty/PostgreSQL/');
+const pgDir = await resolveResource('Binaries/ThirdParty/PostgreSQL/');
 const dbLauncher = new DbServerLauncher({
-  dataDir: await join(dataDir, 'data'),
-  dbName: 'mydb',
-  port: '5432',
-  username: 'postgres',
-  logFile: await join(dataDir, 'data', 'logfile.log'),
-  migrationFile: await join(dataDir, 'bin', 'pg_mg.dll'),
+  dataDir: await join(pgDir,DB_ENV.dataDir),
+  dbName: DB_ENV.name,
+  port: DB_ENV.port,
+  username: DB_ENV.username,
+  logFile: await join(pgDir, 'data', 'logfile.log'),
+  migrationFile: await join(pgDir, 'bin', 'pg_mg.dll'),
 });
 export const useDBServerStore = create<DBServerState>((set, get) => ({
   serverState: 'stopped',

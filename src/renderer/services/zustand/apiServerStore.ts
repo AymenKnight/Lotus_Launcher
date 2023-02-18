@@ -1,6 +1,7 @@
 import { Child, Command } from '@tauri-apps/api/shell';
 import create from 'zustand';
 import { invoke } from '@tauri-apps/api';
+import { DB_ENV } from '@constants/db';
 
 interface ApiServerState {
   serverState:
@@ -32,7 +33,10 @@ export const useApiServerStore = create<ApiServerState>((set, get) => ({
     if (serverState === 'started') {
       return;
     }
-    const command = new Command('start');
+
+    const dbUrl = `postgresql://${DB_ENV.username}:root@localhost:${DB_ENV.port}/${DB_ENV.name}?schema=public`;
+    const args = ['-u',dbUrl,"-p","3000"];
+    const command = new Command('start',args);
 
     if (sp) {
       await sp.kill();
