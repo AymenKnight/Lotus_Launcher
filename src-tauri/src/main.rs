@@ -19,7 +19,7 @@ struct ServerState(Mutex<String>);
 fn kill_api() -> String {
     let mut found = false;
     let binding = System::new_all();
-    for process in binding.processes_by_name("exec.mc") {
+    for process in binding.processes_by_name("lotus.exe") {
         process
             .kill()
             .then(|| println!("Killed process {}", process.name()))
@@ -37,7 +37,7 @@ fn kill_api() -> String {
 fn is_api_running() -> String {
     let mut found = false;
     let binding = System::new_all();
-    for _process in binding.processes_by_name("exec.mc") {
+    for _process in binding.processes_by_name("lotus.exe") {
         found = true;
         break;
     }
