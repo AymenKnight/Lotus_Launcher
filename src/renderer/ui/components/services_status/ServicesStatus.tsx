@@ -3,9 +3,10 @@ import Check from 'toSvg/check_mark.svg?icon';
 import Stopped from 'toSvg/x_mark.svg?icon';
 import './style/index.scss';
 import { color } from '@assets/styles/color';
+import { DBServerState } from '@stores/dbServerStore';
 interface ServicesStatusProps {
   name: string;
-  state: 'starting' | 'started' | 'stopped' | 'stoping' | 'error' | 'unknown';
+  state: Pick<DBServerState,"serverState">["serverState"];
 }
 export default function ServicesStatus({ name, state }: ServicesStatusProps) {
   return (
@@ -22,15 +23,15 @@ export default function ServicesStatus({ name, state }: ServicesStatusProps) {
           };`,
         }}
       >
-        {state == 'stoping' || state == 'starting' ? (
+        {state != 'stopped' && state != 'started'&& state!="error" ? (
           <LoadingSpinner
-            borderColor={color.white}
-            borderTopColor={color.hot_purple}
+            borderColor={'transparent'}
+            borderTopColor={color.warm_orange}
           />
         ) : state == 'started' ? (
           <Check width={14} height={14} />
         ) : (
-          <Stopped width={10} height={10} />
+          state == 'error' && <Stopped width={10} height={10} />
         )}
       </div>
       <div className="span-containers">

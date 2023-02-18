@@ -4,10 +4,11 @@ import { color } from '@assets/styles/color';
 import TextButton from '@components/buttons/text_button';
 import LoadingSpinner from '@components/loading_spinner';
 import StopWatch from '@components/stop_watch';
+import { DBServerState } from '@stores/dbServerStore';
 
 interface MainButtonProps {
   onPress?: () => void;
-  state: 'starting' | 'started' | 'stopped' | 'stoping' | 'error' | 'unknown';
+  state: Pick<DBServerState,"serverState">["serverState"];
 }
 export default function MainButton({ onPress, state }: MainButtonProps) {
   return (
@@ -20,7 +21,7 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
           }`,
         }}
       >
-        {state == 'starting' || state == 'stoping' ? (
+        {state != 'started' && state != 'stopped'&& state!="error" ? (
           <div className="loading-container">
             <LoadingSpinner
               width={80}
@@ -52,18 +53,19 @@ export default function MainButton({ onPress, state }: MainButtonProps) {
               ? color.good_green
               : state == 'stoping'
               ? color.hot_red
-              : state == 'starting'
-              ? color.warm_orange
-              : color.silver_gray,
+              : state == 'stopped'
+              ?color.silver_gray: color.warm_orange,
         }}
       >
         {state == 'started'
           ? 'Server is running'
           : state == 'stopped'
           ? 'Click to start'
-          : state == 'starting'
-          ? 'Starting please wait'
-          : 'Stopping please wait'}
+          
+          : state == 'stoping'
+          ? 'Stopping please wait'
+          : state=="error"?'Error please restart'
+          : 'Starting please wait'}
       </span>
 
       {state == 'started' && <StopWatch />}
