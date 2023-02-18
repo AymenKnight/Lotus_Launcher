@@ -17,7 +17,8 @@
       "toSvg/*": ["src/renderer/assets/svg/*"],
       "toPng/*": ["src/renderer/assets/pictures/*"],
       "@stores/*": ["src/renderer/services/zustand/*"],
-      "@colors": ["src/renderer/assets/styles/color.ts"]
+      "@colors": ["src/renderer/assets/styles/color.ts"],
+      "@constants/*": ["src/renderer/utils/constants/*"]
     },
     "noEmit": false,
     "typeRoots": ["src/main/channel/types", "node_modules/@types", "../@types"],
