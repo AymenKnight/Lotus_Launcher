@@ -11,13 +11,95 @@
     "version": "0.1.0"
   },
   "tauri": {
+    "systemTray": {
+      "iconPath": "icons/32x32.png",
+      "iconAsTemplate": true,
+      "title": "Lotus Launcher",
+      "menuOnLeftClick": true
+    },
     "allowlist": {
+      "path": {
+        "all": true
+      },
+      "dialog": {
+        "all": true
+      },
       "shell": {
         "all": true,
         "execute": true,
         "sidecar": true,
         "open": true,
-        "scope": [{ "name": "start", "cmd": "Binaries/Win64/exec.mc" }]
+        "scope": [
+          { "name": "start", "cmd": "Binaries/Win64/exec.mc" },
+          {
+            "name": "pg_isReady",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/pg_isready.exe"
+          },
+          {
+            "name": "initdb",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/initdb.exe",
+            "args": true
+          },
+          {
+            "name": "pg_ctl:start",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/pg_ctl.exe",
+            "args": [
+              "-D",
+              { "validator": "\\S+" },
+              "-l",
+              { "validator": "\\S+" },
+              "start"
+            ]
+          },
+          {
+            "name": "pg_ctl:stop",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/pg_ctl.exe",
+            "args": ["-D", { "validator": "\\S+" }, "stop"]
+          },
+          {
+            "name": "createdb",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/createdb.exe",
+            "args": true
+          },
+          {
+            "name": "psql:db",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/psql.exe",
+            "args": [
+              "-U",
+              { "validator": "\\S+" },
+              "-c",
+              {
+                "validator": "^select 1 from pg_database where datname='+(\\S+)+'$"
+              }
+            ]
+          },
+          {
+            "name": "psql:table",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/psql.exe",
+            "args": [
+              "-U",
+              { "validator": "\\S+" },
+              "-d",
+              { "validator": "\\S+" },
+              "-c",
+              {
+                "validator": "^select 1 from \"Member\"$"
+              }
+            ]
+          },
+          {
+            "name": "psql:migrate",
+            "cmd": "Binaries/ThirdParty/PostgreSQL/bin/psql.exe",
+            "args": [
+              "-U",
+              { "validator": "\\S+" },
+              "-d",
+              { "validator": "\\S+" },
+              "-f",
+              { "validator": "\\S+" }
+            ]
+          }
+        ]
       }
     },
 
@@ -65,7 +147,7 @@
       {
         "fullscreen": false,
         "height": 600,
-        "resizable": true,
+        "resizable": false,
         "title": "Launcher",
         "width": 400,
         "titleBarStyle": "Overlay"
