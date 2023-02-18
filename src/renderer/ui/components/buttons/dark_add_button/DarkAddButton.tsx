@@ -1,5 +1,5 @@
 import { color } from '@colors';
-import Add from 'toSvg/add.svg?icon';
+import Add from 'toSvg/power.svg?icon';
 import IconicButton from '../iconic_button';
 import { ComponentProps } from 'react';
 
