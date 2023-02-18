@@ -2,34 +2,24 @@ import { Child, Command } from '@tauri-apps/api/shell';
 import create from 'zustand';
 import { invoke } from '@tauri-apps/api';
 
-interface ServicesState {
+interface ApiServerState {
   serverState:
     | 'starting'
     | 'started'
     | 'stopped'
     | 'stoping'
-    | 'error'
-    | 'unknown';
-  databaseState:
-    | 'starting'
-    | 'started'
-    | 'stopped'
-    | 'stoping'
-    | 'error'
-    | 'unknown';
+    | 'error';
   serverProcess?: Child;
   serverIp?: string;
+  error?: string;
   startServer: () => void;
   stopServer: () => void;
-  startDatabase: () => void;
-  stopDatabase: () => void;
   serverStarted: () => void;
   serverStopped: () => void;
-  databaseStarted: () => void;
-  databaseStopped: () => void;
+  serverError: () => void;
 }
 
-export const useServicesStore = create<ServicesState>((set, get) => ({
+export const useApiServerStore = create<ApiServerState>((set, get) => ({
   serverState: 'stopped',
   databaseState: 'stopped',
   startServer: async () => {
@@ -51,18 +41,17 @@ export const useServicesStore = create<ServicesState>((set, get) => ({
     }
     const serverProcess = await command.spawn();
     command.on('close', () => {
-      serverStopped();
+      if (get().serverState !== 'error') serverStopped();
     });
     command.stdout.addListener('data', (data: string) => {
+      console.log(data);
       if (data.includes('started')) {
         serverStarted();
       }
     });
-    command.on('error', (data) => {
-      console.log(data);
-    });
+
     command.stderr.addListener('data', (data) => {
-      console.log(data);
+      get().serverError();
     });
 
     return set({ serverState: 'starting', serverProcess, serverIp: undefined });
@@ -83,21 +72,16 @@ export const useServicesStore = create<ServicesState>((set, get) => ({
     return set({ serverState: 'started', serverIp });
   },
   serverStopped: () => set({ serverState: 'stopped', serverIp: undefined }),
-  databaseStarted: () => set({ databaseState: 'started' }),
-  databaseStopped: () => set({ databaseState: 'stopped' }),
-  stopDatabase: () => set({ databaseState: 'stoping' }),
-  startDatabase: () => set({ databaseState: 'starting' }),
+  serverError: () => set({ serverState: 'error' }),
 }));
 invoke('is_api_running').then((isRunning) => {
   if (isRunning === 'true') {
-    useServicesStore.getState().serverStarted();
+    useApiServerStore.getState().serverStarted();
   }
 });
 
-export const useServerState = () =>
-  useServicesStore((state) => ({
+export const useApiServer = () =>
+  useApiServerStore((state) => ({
     serverState: state.serverState,
     serverIp: state.serverIp,
   }));
-export const useDatabaseState = () =>
-  useServicesStore((state) => state.databaseState);
