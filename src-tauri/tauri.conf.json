@@ -7,14 +7,14 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "Lotus Launcher",
+    "productName": "Clinicord Server",
     "version": "0.1.0"
   },
   "tauri": {
     "systemTray": {
       "iconPath": "icons/32x32.png",
       "iconAsTemplate": true,
-      "title": "Lotus Launcher",
+      "title": "Clinicord Server",
       "menuOnLeftClick": true
     },
     "allowlist": {
@@ -32,11 +32,13 @@
         "scope": [
           {
             "name": "start",
-            "cmd": "Binaries/Win64/lotus.exe",
+            "cmd": "Binaries/Win64/Lotus-Win64.exe",
             "args": [
               "-u",
               { "validator": "\\S+" },
               "-p",
+              { "validator": "\\S+" },
+              "-d",
               { "validator": "\\S+" }
             ]
           },
@@ -128,7 +130,7 @@
         "icons/icon.ico"
       ],
       "resources": ["Binaries/*"],
-      "identifier": "com.clinicord.alfa",
+      "identifier": "Clinicord Server",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

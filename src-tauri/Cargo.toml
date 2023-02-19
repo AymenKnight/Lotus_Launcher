@@ -1,7 +1,7 @@
 [package]
-name = "clinicord"
-version = "0.1.0"
-description = "Clinicord is a Medical practice management software/system tend to improve healthcare services."
+name = "clinicord-server"
+version = "1.0.0-alpha.1"
+description = "Clinicord Server is a utiliy that is used to start a Clinicord server."
 authors = ["dzbrackets"]
 license = "EULA"
 repository = "https://github.com/Danzo7/doctorIO"

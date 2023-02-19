@@ -19,7 +19,7 @@ struct ServerState(Mutex<String>);
 fn kill_api() -> String {
     let mut found = false;
     let binding = System::new_all();
-    for process in binding.processes_by_name("lotus.exe") {
+    for process in binding.processes_by_name("Lotus-Win64.exe") {
         process
             .kill()
             .then(|| println!("Killed process {}", process.name()))
@@ -37,7 +37,7 @@ fn kill_api() -> String {
 fn is_api_running() -> String {
     let mut found = false;
     let binding = System::new_all();
-    for _process in binding.processes_by_name("lotus.exe") {
+    for _process in binding.processes_by_name("Lotus-Win64.exe") {
         found = true;
         break;
     }
@@ -75,7 +75,9 @@ fn set_server_state(state: String, old_state: State<ServerState>) -> String {
 }
 
 fn main() {
-    let quit = CustomMenuItem::new("quit".to_string(), "Quit Lotus Launcher");
+    let app_name = "Clinicord Server";
+
+    let quit = CustomMenuItem::new("quit".to_string(), format!("Quit {}", app_name));
     let tray_menu = SystemTrayMenu::new().add_item(quit);
     tauri::Builder::default()
         .manage(ServerState(Default::default()))
@@ -85,10 +87,11 @@ fn main() {
                 let state = window.state::<ServerState>().0.lock().unwrap().to_string();
                 api.prevent_close();
                 if state != "started" {
+                    //get app name
                     ask(
                         Some(&window),
-                        "Close Lotus Launcher ".to_owned(),
-                        "Are you sure you want to close Lotus Launcher?",
+                        format!("Close {}", app_name),
+                        format!("Are you sure you want to close {}?", app_name),
                         move |answer| {
                             if answer {
                                 std::process::exit(0);
@@ -103,7 +106,7 @@ fn main() {
             _ => {}
         })
         .system_tray(SystemTray::new().with_menu(tray_menu))
-        .on_system_tray_event(|app, event| match event {
+        .on_system_tray_event(move |app, event| match event {
             SystemTrayEvent::DoubleClick {
                 position: _,
                 size: _,
@@ -122,8 +125,8 @@ fn main() {
                     "quit" => {
                         if state == "started" {
                             MessageDialogBuilder::new(
-                                "Lotus Launcher is running",
-                                "Please stop the server before closing Lotus Launcher",
+                                "The server is running",
+                                format!("You can't close {} while the server is running", app_name),
                             )
                             .buttons(MessageDialogButtons::Ok)
                             .parent(&window)
@@ -137,8 +140,8 @@ fn main() {
                         } else {
                             ask(
                                 Some(&window),
-                                "Close Lotus Launcher ".to_owned(),
-                                "Are you sure you want to close Lotus Launcher?",
+                                format!("Close {}", app_name),
+                                format!("Are you sure you want to close {}?", app_name),
                                 move |answer| {
                                     if answer {
                                         std::process::exit(0);
@@ -161,5 +164,5 @@ fn main() {
             set_server_state
         ])
         .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .expect(format!("{} failed to run", app_name).as_str());
 }

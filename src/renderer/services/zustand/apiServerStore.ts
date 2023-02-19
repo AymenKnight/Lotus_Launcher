@@ -35,7 +35,7 @@ export const useApiServerStore = create<ApiServerState>((set, get) => ({
     }
 
     const dbUrl = `postgresql://${DB_ENV.username}:root@localhost:${DB_ENV.port}/${DB_ENV.name}?schema=public`;
-    const args = ['-u',dbUrl,"-p","3000"];
+    const args = ['-u',dbUrl,"-p","3000","-d","data"];
     const command = new Command('start',args);
 
     if (sp) {

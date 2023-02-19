@@ -1,8 +1,8 @@
 {
-  "name": "lotus_launcher",
-  "productName": "LotusLauncher",
-  "version": "0.0.1-alpha",
-  "description": "Clinicord server launcher ",
+  "name": "clinicord-server",
+  "productName": "Clinicord server",
+  "version": "1.0.0-alpha",
+  "description": "Clinicord Server",
   "main": "build/main",
   "keywords": [],
   "author": {
