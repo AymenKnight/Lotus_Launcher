@@ -13,8 +13,7 @@ const {
   isDevelopment,
   isProduction,
   definedVariables,
-  isElectron,
-} = require('./electron-config/env.config');
+} = require('./config/env.config');
 
 const aliasResolver = (alias) => {
   const resAlias = {};
