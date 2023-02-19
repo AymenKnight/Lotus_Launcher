@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Clinicord Server",
-    "version": "0.1.0"
+    "version": "1.0.0"
   },
   "tauri": {
     "systemTray": {
@@ -130,7 +130,7 @@
         "icons/icon.ico"
       ],
       "resources": ["Binaries/*"],
-      "identifier": "Clinicord Server",
+      "identifier": "Clinicord-Server",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
