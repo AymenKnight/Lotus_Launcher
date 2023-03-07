@@ -2,7 +2,7 @@
   "name": "clinicord-server",
   "productName": "Clinicord server",
   "version": "1.0.0-alpha",
-  "description": "Clinicord Server",
+  "description": "Clinicord Server is a software that is responsible of running a Clinicord server instance.",
   "main": "build/main",
   "keywords": [],
   "author": {
@@ -26,7 +26,6 @@
     "test": "web-test-runner \"src/**/*.test.tsx\""
   },
   "dependencies": {
-    "@dnd-kit/core": "^6.0.7",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@tauri-apps/api": "2.0.0-alpha.0",
