@@ -25,7 +25,6 @@
         "all": true
       },
       "shell": {
-        "all": true,
         "execute": true,
         "sidecar": true,
         "open": true,
@@ -49,7 +48,16 @@
           {
             "name": "initdb",
             "cmd": "Binaries/ThirdParty/PostgreSQL/bin/initdb.exe",
-            "args": true
+            "args": [
+              "-D",
+              { "validator": "\\S+" },
+              "-U",
+              { "validator": "\\S+" },
+              "-E",
+              { "validator": "\\S+" },
+              "-A",
+              { "validator": "\\S+" }
+            ]
           },
           {
             "name": "pg_ctl:start",
@@ -70,7 +78,16 @@
           {
             "name": "createdb",
             "cmd": "Binaries/ThirdParty/PostgreSQL/bin/createdb.exe",
-            "args": true
+            "args": [
+              "-h",
+              "localhost",
+              "-p",
+              { "validator": "\\S+" },
+              "-U",
+              { "validator": "\\S+" },
+              "-w",
+              { "validator": "\\S+" }
+            ]
           },
           {
             "name": "psql:db",
@@ -131,17 +148,9 @@
       ],
       "resources": ["Binaries/*"],
       "identifier": "Clinicord-Server",
-      "longDescription": "",
-      "macOS": {
-        "entitlements": null,
-        "exceptionDomain": "",
-        "frameworks": [],
-        "providerShortName": null,
-        "signingIdentity": null
-      },
-
-      "shortDescription": "",
-      "targets": "all",
+      "longDescription": "Clinicord Server is a software that is responsible of running a Clinicord server instance. A Clinicord server instance is required to be able to use Clinicord app",
+      "shortDescription": "Clinicord Server is a utility that runs a Clinicord server instance.",
+      "targets": "msi",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
@@ -159,7 +168,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": false,
-        "title": "Launcher",
+        "title": "Clinicord Server",
         "width": 400,
         "titleBarStyle": "Overlay"
       }
