@@ -5,7 +5,6 @@
 declare const APP_WEBPACK_ENTRY: string;
 declare const APP_PRELOAD_WEBPACK_ENTRY: string;
 declare const IS_DEV: boolean;
-declare const FROM_ELECTRON: boolean;
 declare const FROM_TAURI: boolean;
 declare const IS_DESKTOP: boolean;
 
